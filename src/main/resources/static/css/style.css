@@ -1,0 +1,76 @@
+a{
+    cursor: pointer;
+}
+.success{
+    background-color: #e6eeff;
+}
+.error{
+    background-color: #ffe6e6;
+}
+.errorVis{
+    color: #ff8080;
+    display: block;
+}
+.errorVis .hidden{
+    display: none;
+}
+.hidden{
+    display: none;
+}
+.visible{
+    display: inline-block;
+}
+.successHid{
+    display: none;
+}
+.successVis{
+    color: green;
+    display: block;
+}
+.resp_vis{
+    display: none;
+}
+.loadAnim{
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration:2s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+}
+@media only screen and (max-width: 992px) {
+    /* For mobile phones: */
+    .col_1{
+        display: none;
+    }
+    .resp_hid{
+        display: none;
+    }
+    .resp_vis{
+        display: inline-block;
+    }
+    thead{
+        font-weight: 10;
+    }
+    .col_5{
+
+    }
+
+    /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+
+
+
+}
+@media only screen and (max-width: 656px){
+    .prodInp{
+        width: 90px;
+    }
+    th{
+        line-height: 10px;
+    }
+}
+.table-responsive {
+    min-height: .01%;
+    overflow: visible!important;
+}
+.removeItem{
+    cursor: pointer;
+}
