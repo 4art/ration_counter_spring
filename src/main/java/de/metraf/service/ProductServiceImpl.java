@@ -5,6 +5,8 @@ import de.metraf.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +20,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Set<Product> findAll() {
-        return (Set<Product>) productsRepository.findAll();
+        Set<Product> sProducts = new HashSet<>();
+        Collection<Product> products = productsRepository.findAll();
+        for(Product p : products){
+            sProducts.add(p);
+        }
+        return sProducts;
     }
 
     @Override

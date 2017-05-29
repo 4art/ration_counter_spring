@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /**
@@ -21,13 +25,25 @@ public class ProductRepositoryTest {
     private Product product;
 
     @Before
-    public void setProduct(){
-        product = productsRepository.findOne(1L);
+    public void setProduct() {
+        product = productsRepository.findByName("kaki");
 //        product = productsRepository.
     }
+
     @Test
-    public void isNullProduct() throws Exception{
+    public void isNullProduct() throws Exception {
         assertNotNull(product);
+        assertEquals(product.getName(), "kaki");
         System.out.println("name: " + product.getName() + " prot: " + product.getProtein());
+    }
+
+    @Test
+    public void setTest() {
+        Set<Product> sProducts = new HashSet<>();
+        Collection<Product> products = productsRepository.findAll();
+        for (Product p : products) {
+            sProducts.add(p);
+        }
+        assertNotNull(products);
     }
 }
