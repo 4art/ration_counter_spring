@@ -1,6 +1,8 @@
 package de.metraf.service;
 
 import de.metraf.model.Product;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +36,12 @@ public class ProductServiceImplTest {
 
     @Test
     public void findByName() throws Exception {
-        Product product = productService.findByName("kaki");
+        Product product = productService.findByName("bla");
         assertNotNull(product);
         System.out.println(product.getId() + " " +product.getName());
     }
 
-    @Test
+    @Before
     public void save() throws Exception {
         Product product = new Product();
         product.setCarbo(0.1);
@@ -51,7 +53,7 @@ public class ProductServiceImplTest {
         assertNotNull(getIdByName("bla"));
     }
 
-    @Test
+    @After
     public void delete() throws Exception {
         Product product = productService.findByName("bla");
         assertNotNull(product);
