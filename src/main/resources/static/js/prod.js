@@ -1,7 +1,7 @@
 /**
  * Created by metraf on 11.12.16.
  */
-var productsURL = "http://localhost:8080/api/products";
+var productsURL = "api/products";
 var app = angular.module('myApp', ["angucomplete"]);
 
 app.controller('productsCtrl', function ($scope, $http) {
