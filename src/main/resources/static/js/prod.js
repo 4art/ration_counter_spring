@@ -1,6 +1,3 @@
-/**
- * Created by metraf on 11.12.16.
- */
 var productsURL = "api/products";
 var app = angular.module('myApp', ["angucomplete"]);
 
@@ -20,6 +17,11 @@ app.controller('productsCtrl', function ($scope, $http) {
             $('#rationProtein').text('0.00');
             $('#rationFat').text('0.00');
             $('#rationKcal').text('0.00');
+            $('#weight').on("blur keyup keydown change", function () {
+                if($(this).val() < 0){
+                    $(this).val(0);
+                }
+            });
             $scope.addRation = function () {
                 $scope.ration.push({
                     weight: $scope.weight,
@@ -33,13 +35,13 @@ app.controller('productsCtrl', function ($scope, $http) {
                 $('#name_value').val('');
                 $scope.weight = 0;
                 // console.log($scope.ration);
-            }
+            };
             $scope.removeItem = function (x) {
                 $scope.ration.splice(x, 1);
                 for (var i = 0; i < $scope.ration.length; i++) {
                     $scope.ration[i].counter = i + 1;
                 }
-            }
+            };
             $scope.saveNewProducts = function () {
                 if ($scope.newProducts.$valid) {
                     // console.log($scope.newProducts);
@@ -83,3 +85,4 @@ app.controller('productsCtrl', function ($scope, $http) {
 function firstToUpperCase( str ) {
     return str.substr(0, 1).toUpperCase() + str.substr(1);
 }
+

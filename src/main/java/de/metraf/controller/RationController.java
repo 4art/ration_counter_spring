@@ -20,7 +20,8 @@ public class RationController {
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ModelAndView productsView() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("products");
+        modelAndView.setViewName("counter");
         return modelAndView;
     }
+
 }

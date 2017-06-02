@@ -9,7 +9,7 @@ app.controller('validRegist', function ($scope) {
 
         checkName.getArrayOptions.url = 'api/checkNewName/' + $(this).val();
         checkName.getArrayOptions.async = false;
-        console.log($scope.registForm.registLogin.$invalid);
+        console.log($scope.registForm.registLogin.$invalid); 
         var arr = checkName.getArray();
         var error = new uniqFunc();
         if (arr) {

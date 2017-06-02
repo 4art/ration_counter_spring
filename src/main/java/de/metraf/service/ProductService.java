@@ -11,6 +11,6 @@ public interface ProductService {
     Set<Product> findAll();
     Product findOne(Long id);
     Product findByName(String name);
-    void save(Product product);
+    Product save(Product product);
     void delete(Long id);
 }
