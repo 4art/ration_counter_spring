@@ -4,12 +4,6 @@ var app = angular.module('myApp', ["angucomplete"]);
 app.controller('productsCtrl', function ($scope, $http) {
     $http.get(productsURL)
         .then(function (response) {
-            // for(var i = 0; i < response.data.length; i++){
-            //     response.data[i].carbo = response.data[i].carbo.toFixed(2);
-            //     response.data[i].protein = response.data[i].protein.toFixed(2);
-            //     response.data[i].fat = response.data[i].fat.toFixed(2);
-            //     response.data[i].kcal = response.data[i].kcal.toFixed(2);
-            // }
             $scope.weight = 0;
             $scope.products = response.data;
             $scope.ration = [];

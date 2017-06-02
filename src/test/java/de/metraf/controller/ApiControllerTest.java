@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -34,6 +35,7 @@ public class ApiControllerTest {
 
     @MockBean
     private JacksonTester<Product> productJacksonTester;
+
     @Test
     public void getAllProducts() throws Exception {
         mockMvc.perform(get("/api/products"))
@@ -42,14 +44,16 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void getProductById() throws Exception{
+    public void getProductById() throws Exception {
         mockMvc.perform(get("/api/product/1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"));
     }
 
-//    @Test
-//    public void isNullJson() throws Exception{
-//        assertNotNull(productJacksonTester);
-//    }
+    @Test
+    public void checkNewName() throws Exception {
+        mockMvc.perform(get("/api/checkNewName/metraf"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"));
+    }
 }

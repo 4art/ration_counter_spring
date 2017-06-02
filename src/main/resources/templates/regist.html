@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<#include "includes/meta.ftl" />
-
-    <link rel="stylesheet" type="text/css" href="css/signin.css">
+    <title>Sign In</title>
+    <div th:include="fragments/tmpl :: head"></div>
 </head>
 
 <body ng-app="valid" ng-controller="validRegist">
 
 <div class="container">
-<#include 'includes/nav-bar.ftl'/>
+    <div th:include="fragments/tmpl :: nav-bar"></div>
 
-    <form class="form-signin" name="registForm" ng-submit="saveNewUser()">
+    <form class="form-signin" name="registForm" th:action="@{/ышптг}" th:object="${user}"  method="POST">
         <!-- <h2 class="form-signin-heading">Bitte Loggen Sie sich ein.</h2>-->
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registLogin.$dirty && registForm.registLogin.$invalid}">
-            <label for="inputName" class="sr-only">Login</label>
-            <input type="text" id="registLogin" name="registLogin" ng-model="regist.login" class="form-control"
+            <label for="registLogin" class="sr-only">login</label>
+            <input type="text" id="registLogin" th:field="*{name}" ng-model="regist.login" class="form-control"
                    placeholder="Login" ng-minlength="3" ng-maxlength="20" required autofocus>
             <span class="errorVis hidden" id="errorName">Die Name ist schon besetzt.</span>
+            <span class="errorVis" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
             <span class="errorVis"
                   ng-show="registForm.registLogin.$dirty && registForm.registLogin.$invalid">
@@ -31,9 +32,10 @@
         </div>
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registEmail.$dirty && registForm.registEmail.$invalid}">
-            <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" id="inputEmail_Reg" ng-model="regist.email" name="registEmail" class="form-control"
+            <label for="inputEmail_Reg" class="sr-only">Email</label>
+            <input type="email" id="inputEmail_Reg" ng-model="regist.email" th:field="*{email}" class="form-control"
                    placeholder="Email" required autofocus>
+            <span class="errorVis" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             <span class="errorVis"
                   ng-show="registForm.registEmail.$dirty && registForm.registEmail.$invalid">
                     <span class="errorVis" ng-show="registForm.registEmail.$error.required">Das ist ein Pflichtfeld.</span>
@@ -42,9 +44,10 @@
         </div>
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registPassword.$dirty && registForm.registPassword.$invalid}">
-            <label for="inputPassword" class="sr-only" ng-minlength="3" ng-maxlength="50">Kennword</label>
+            <label for="inputPassword_Reg_re" class="sr-only" ng-minlength="3" ng-maxlength="50">Kennword</label>
             <input type="password" id="registPassword" class="form-control" ng-model="regist.password"
-                   name="registPassword" placeholder="Kennword" required>
+                   name="registPassword" placeholder="Kennword" th:field="*{password}" required>
+            <span class="errorVis" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             <span class="errorVis"
                   ng-show="registForm.registPassword.$dirty && registForm.registPassword.$invalid">
 
@@ -55,10 +58,11 @@
         </div>
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registPasswordAgain.$dirty && registForm.registPasswordAgain.$invalid}">
-            <label for="inputPassword" class="sr-only">Kennword wiederholen</label>
+            <label for="inputPassword_Reg_re" class="sr-only">Kennword wiederholen</label>
             <input type="password" id="inputPassword_Reg_re" class="form-control" name="registPasswordAgain"
-                   ng-model="regist.passwordAgain" ng-minlength="3" ng-maxlength="50" class="form-control"
+                   ng-model="regist.passwordAgain" ng-minlength="3" ng-maxlength="50" th:field="*{confirmPassword}" class="form-control"
                    placeholder="Kennword wieder" pw-check="registPassword" required>
+            <span class="errorVis" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             <span class="errorVis"
                   ng-show="registForm.registPasswordAgain.$dirty && registForm.registPasswordAgain.$invalid">
 
@@ -73,9 +77,9 @@
                value="Registrieren">
     </form>
     <div class="empty"></div>
-<#include 'includes/js.html' />
+    <footer th:include="fragments/tmpl :: footer"></footer>
+    <div th:include="fragments/tmpl :: js"></div>
     <script type="text/javascript" src="js/usersValid.js"></script>
-<#include 'includes/footer.ftl' />
 </div> <!-- /container -->
 
 </body>

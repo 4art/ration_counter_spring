@@ -1,8 +1,10 @@
 package de.metraf.controller;
 
 import de.metraf.model.Product;
+import de.metraf.model.User;
 import de.metraf.repository.ProductsRepository;
 import de.metraf.service.ProductService;
+import de.metraf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,6 +24,8 @@ import java.util.Set;
 public class ApiController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Product>> getAllProducts(){
@@ -47,6 +52,19 @@ public class ApiController {
             return new ResponseEntity<Product>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<Product>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/checkNewName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Map> checkNewName(@PathVariable String name){
+        User user = userService.findByName(name);
+        Map res = new HashMap();
+        if(user == null){
+            res.put("uniq", true);
+        }
+        else {
+            res.put("uniq", false);
+        }
+        return new ResponseEntity<Map>(res, HttpStatus.OK);
     }
 
 

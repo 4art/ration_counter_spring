@@ -26,12 +26,12 @@ public class User {
     @NotEmpty(message = "*Please provide your password")
     @Transient
     private String password;
+    @Transient
+    private String confirmPassword;
+
     @Column(name = "name")
     @NotEmpty(message = "*Please provide your name")
     private String name;
-    @Column(name = "last_name")
-    @NotEmpty(message = "*Please provide your last name")
-    private String lastName;
     @Column(name = "active")
     private boolean active;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -56,20 +56,20 @@ public class User {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {

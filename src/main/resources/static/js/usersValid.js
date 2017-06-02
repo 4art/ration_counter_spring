@@ -3,28 +3,20 @@
  */
 var app = angular.module('valid', []);
 
-app.controller('validRegist', function ($scope) {
-    var checkName = new getAjax();
-    $('#registLogin').keyup(function () {
+app.controller('validRegist', function ($scope, $http) {
+    var error = new uniqFunc();
+    $('#registLogin').on("keyup keydown change blur", function () {
+        if ($.trim($(this).val()).length > 3) {
+            $http.get('api/checkNewName/' + $(this).val()).then(function (response) {
+                // console.log(response);
+                if (response.data.uniq) {
+                    error.setSuccess();
+                }
+                else {
+                    error.setError();
+                }
 
-        checkName.getArrayOptions.url = 'api/checkNewName/' + $(this).val();
-        checkName.getArrayOptions.async = false;
-        console.log($scope.registForm.registLogin.$invalid); 
-        var arr = checkName.getArray();
-        var error = new uniqFunc();
-        if (arr) {
-            // console.log('not uniq');
-            // $scope.registForm.registLogin.$invalid = true;
-            // $scope.registForm.registLogin.$error.notUniq = true;
-            error.setError();
-        }
-        else {
-            if ($.trim($(this).val()).length > 3) {
-                // console.log('bla');
-                // $scope.registForm.registLogin.$invalid = false;
-                // $scope.registForm.registLogin.$error.notUniq = false;
-                error.setSuccess();
-            }
+            });
         }
     });
     $scope.saveNewUser = function () {
@@ -55,52 +47,20 @@ app.directive('pwCheck', [function () {
     }
 }]);
 var uniqFunc = function () {
-  this.elements = {
-      name: $('#registLogin'),
-      button: $('#reg_but'),
-      errorMes: $('#errorName')
-  };
-  this.setError = function () {
-      this.elements.name.parent().addClass('has-error');
-      this.elements.errorMes.removeClass('hidden');
-      // this.elements.button.disable(true);
-      this.elements.button.attr('disabled', true);
-  };
-  this.setSuccess = function () {
-      this.elements.name.parent().removeClass('has-error');
-      this.elements.errorMes.addClass('hidden');
-      // this.elements.button.attr('disabled', false);
-  };
-};
-
-var getAjax = function () {
-    this.getArrayOptions = {
-        url: "/api",
-        contentType: "application/json",
-        async: true
+    this.elements = {
+        name: $('#registLogin'),
+        button: $('#reg_but'),
+        errorMes: $('#errorName')
     };
-    this.getArray = function () {
-        var arr;
-        $.ajax({
-            async: this.getArrayOptions.async,
-            url: this.getArrayOptions.url,
-            type: 'GET',
-            dataType: 'html',
-            contentType: this.getArrayOptions.contentType,
-            success: function (data) {
-                if (isJson(data)) {
-                    arr = JSON.parse(data);
-                }
-            }
-        });
-        return arr;
-    }
+    this.setError = function () {
+        this.elements.name.parent().addClass('has-error');
+        this.elements.errorMes.removeClass('hidden');
+        // this.elements.button.disable(true);
+        this.elements.button.attr('disabled', true);
+    };
+    this.setSuccess = function () {
+        this.elements.name.parent().removeClass('has-error');
+        this.elements.errorMes.addClass('hidden');
+        // this.elements.button.attr('disabled', false);
+    };
 };
-function isJson(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}

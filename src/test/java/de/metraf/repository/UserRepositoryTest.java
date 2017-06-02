@@ -23,7 +23,7 @@ public class UserRepositoryTest {
 
     @Test
     public void repositoryValid() {
-        User user = userRepository.findByEmail("firsov.tyoma@yahoo.de");
+        User user = userRepository.findByName("metraf");
         assertNotNull(user);
         assertNotNull(user.getRoles());
         Set<Role> roles = user.getRoles();
