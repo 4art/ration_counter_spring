@@ -24,10 +24,10 @@ public class LoginController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value={"/login"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/signin"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("login");
+		modelAndView.setViewName("signin");
 		return modelAndView;
 	}
 	
