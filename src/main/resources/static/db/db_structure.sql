@@ -78,3 +78,21 @@ CREATE TABLE `user_role` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-11-16 13:21:44
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `protein` double NOT NULL,
+  `fat` double NOT NULL,
+  `carbo` double NOT NULL,
+  `kcal` double NOT NULL,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
