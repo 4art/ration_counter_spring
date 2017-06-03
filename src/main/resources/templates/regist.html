@@ -11,7 +11,7 @@
 <div class="container">
     <div th:include="fragments/tmpl :: nav-bar"></div>
 
-    <form class="form-signin" name="registForm" th:action="@{/ышптг}" th:object="${user}"  method="POST">
+    <form class="form-signin" name="registForm" th:action="@{/signup}" th:object="${user}"  method="POST">
         <!-- <h2 class="form-signin-heading">Bitte Loggen Sie sich ein.</h2>-->
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registLogin.$dirty && registForm.registLogin.$invalid}">
@@ -72,7 +72,7 @@
                     <span class="errorVis" ng-show='registForm.registPasswordAgain.$error.pwmatch'>Die Kennwörter sind nicht gleich.</span>
             </span>
         </div>
-        <p class="errorHid" id="error_regist">* Füllen Sie alle Felder richtig aus.</p>
+        <!--/* <p class="errorHid" id="error_regist">* Füllen Sie alle Felder richtig aus.</p> */-->
         <input type="submit" id="reg_but" class="btn btn-lg btn-block btn-primary" ng-disabled="registForm.$invalid"
                value="Registrieren">
     </form>

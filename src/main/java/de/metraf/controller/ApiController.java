@@ -28,42 +28,37 @@ public class ApiController {
     private UserService userService;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Set<Product>> getAllProducts(){
+    public ResponseEntity<Set<Product>> getAllProducts() {
         Set<Product> products = productService.findAll();
-        if(products == null){
+        if (products == null) {
             return new ResponseEntity<Set<Product>>(products, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<Set<Product>>(products, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
         Product product = productService.findOne(id);
-        if(product == null){
+        if (product == null) {
             return new ResponseEntity<Product>(product, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> saveProducts(@RequestBody Product product){
+    public ResponseEntity<Product> saveProducts(@RequestBody Product product) {
         Product updatedProduct = productService.save(product);
-        if(updatedProduct == null){
+        if (updatedProduct == null) {
             return new ResponseEntity<Product>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<Product>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/checkNewName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map> checkNewName(@PathVariable String name){
+    public ResponseEntity<Map> checkNewName(@PathVariable String name) {
         User user = userService.findByName(name);
         Map res = new HashMap();
-        if(user == null){
-            res.put("uniq", true);
-        }
-        else {
-            res.put("uniq", false);
-        }
+        res.put("uniq", user == null ? true : false);
         return new ResponseEntity<Map>(res, HttpStatus.OK);
     }
 

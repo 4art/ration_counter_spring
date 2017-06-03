@@ -31,16 +31,6 @@ public class LoginController {
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration() {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("registration");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView();
@@ -50,25 +40,25 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/regist", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null) {
             bindingResult
-                    .rejectValue("email", "error.user","Dieses Login ist schon besetzt");
+                    .rejectValue("email", "error.user", "Dieses Login ist schon besetzt");
         }
-        if (!user.getPassword().equals(user.getConfirmPassword())){
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
             bindingResult
                     .rejectValue("password", "error.password", "Die Kennwörter müssen gleich sein");
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("regist");
         } else {
+            user.setConfirmPassword(null);
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("regist");
+            modelAndView.addObject("successMessage", user.getName() + ", Sie haben sich erfolgreich registriert.");
+            modelAndView.setViewName("signin");
 
         }
         return modelAndView;

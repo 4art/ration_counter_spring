@@ -1,14 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lebensmittel</title>
-<#include "includes/meta.ftl" />
+    <div th:include="fragments/tmpl :: head"></div>
     <link rel="stylesheet" type="text/css" href="css/angucomplete.css">
 </head>
 <body>
 
 <div ng-app="myApp" class="container">
     <div ng-controller="productsCtrl">
-    <#include 'includes/nav-bar.ftl'/>
+        <div th:include="fragments/tmpl :: nav-bar"></div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -44,10 +46,10 @@
                       inputclass="form-control form-control-small"/>
     </div>
 </div>
-<#include 'includes/footer.ftl' />
+<footer th:include="fragments/tmpl :: footer"></footer>
+<div th:include="fragments/tmpl :: js"></div>
 </div>
 
-<#include 'includes/js.html' />
 <script type="text/javascript" src="js/angucomplete.js"></script>
 <script type="text/javascript" src="js/prod.js"></script>
 </body>

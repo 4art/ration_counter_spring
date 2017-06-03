@@ -11,6 +11,9 @@
 <div class="container">
     <div th:include="fragments/tmpl :: nav-bar"></div>
     <form class="form-signin" method="POST" th:action="@{/signin}">
+        <div th:if="successMessage">
+            <h1 th:utext="${successMessage}"></h1>
+        </div>
         <h2 class="form-signin-heading">Bitte Loggen Sie sich ein.</h2>
         <div class="form-group">
             <label for="inputEmail_Log" class="sr-only">Email Addresse</label>

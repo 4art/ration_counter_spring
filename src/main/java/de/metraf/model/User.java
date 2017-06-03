@@ -18,19 +18,18 @@ public class User {
     @Column(name = "user_id")
     private int id;
     @Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+    @Email(message = "*Korregieren Sie Bitte email")
+    @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String email;
     @Column(name = "password")
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
-    @Transient
+    @Length(min = 5, message = "*Das Kennwort ist zu kurz")
+    @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String password;
     @Transient
     private String confirmPassword;
 
     @Column(name = "name")
-    @NotEmpty(message = "*Please provide your name")
+    @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String name;
     @Column(name = "active")
     private boolean active;
