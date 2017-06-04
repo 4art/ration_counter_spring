@@ -1,9 +1,3 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
---
--- Host: localhost    Database: spring-security-tutorial
--- ------------------------------------------------------
--- Server version	5.7.11-log
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -95,4 +89,17 @@ CREATE TABLE `products` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contact` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `date_time` tinyblob,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 

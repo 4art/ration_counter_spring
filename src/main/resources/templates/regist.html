@@ -58,7 +58,7 @@
         </div>
         <div class="form-group"
              ng-class="{ 'has-error' : registForm.registPasswordAgain.$dirty && registForm.registPasswordAgain.$invalid}">
-            <label for="inputPassword_Reg_re" class="sr-only">Kennword wiederholen</label>
+            <label for="inputPassword_Reg_re" class="sr-only">Kennwort wiederholen</label>
             <input type="password" id="inputPassword_Reg_re" class="form-control" name="registPasswordAgain"
                    ng-model="regist.passwordAgain" ng-minlength="3" ng-maxlength="50" th:field="*{confirmPassword}" class="form-control"
                    placeholder="Kennword wieder" pw-check="registPassword" required>
@@ -72,7 +72,7 @@
                     <span class="errorVis" ng-show='registForm.registPasswordAgain.$error.pwmatch'>Die Kennwörter sind nicht gleich.</span>
             </span>
         </div>
-        <!--/* <p class="errorHid" id="error_regist">* Füllen Sie alle Felder richtig aus.</p> */-->
+        <!--<p class="errorVis" id="error_regist">* Füllen Sie alle Felder richtig aus.</p>-->
         <input type="submit" id="reg_but" class="btn btn-lg btn-block btn-primary" ng-disabled="registForm.$invalid"
                value="Registrieren">
     </form>
