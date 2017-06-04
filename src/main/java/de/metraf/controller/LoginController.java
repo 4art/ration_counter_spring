@@ -46,7 +46,7 @@ public class LoginController {
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null) {
             bindingResult
-                    .rejectValue("email", "error.user", "Dieses Login ist schon besetzt");
+                    .rejectValue("email", "error.user", "Dieses Email ist schon besetzt");
         }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             bindingResult
