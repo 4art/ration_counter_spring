@@ -4,8 +4,8 @@
 <head>
     <title>Kontakt</title>
     <style type="text/css">
-        #myPhoto{
-            margin-left:-15px;
+        #myPhoto {
+            margin-left: -15px;
         }
     </style>
     <div th:include="fragments/tmpl :: head"></div>
@@ -21,37 +21,39 @@
         <h4>Antoninusstr. 18</h4>
         <h4>60439 Frankfurt am Main</h4>
         <h4>Email: firsov.tyoma@gmail.com</h4>
-        <h4><a href="https://www.linkedin.com/in/artem-firsov-a6a915a3"><img src="images/LIn.png" height="20px"> LinkedIn</a></h4>
+        <h4><a href="https://www.linkedin.com/in/artem-firsov-a6a915a3"><img src="images/LIn.png" height="20px">
+            LinkedIn</a></h4>
         <h4><a href="https://www.xing.com/profile/Artem_Firsov"><img src="images/xing.png" height="20px;"> Xing</a></h4>
         <h4>Tel: +49 (0) 179-8538-579</h4>
         <br/>
     </div>
     <div id="border" class="col-md-6">
-        <div class="col-md-6">
-            <div  id="sessionError" class="hidden">
-                <div class="form-group">
-                    <br/><br/><br/>
-                    <span>Name:</span>
-                    <br/>
-                    <input type="text" class="form-control" id="kontName"/>
-                </div>
-                <div class="form-group">
-                    <span> Email:</span>
-                    <input type="name" class="form-control" id="kontEmail"/>
+        <form th:action="@{/contact}" method="POST">
+            <div class="col-md-6">
+                <div id="sessionError">
+                    <div class="form-group">
+                        <br/><br/><br/>
+                        <span>Name:</span>
+                        <br/>
+                        <input type="text" name="name" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <span> Email:</span>
+                        <input type="name" name="email" class="form-control"/>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <span>Nachricht:</span>
-                <textarea  class="form-control" id="kontMessage" style="height:300px;">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <span>Nachricht:</span>
+                    <textarea class="form-control" name="text" style="height:300px;">
 
 					</textarea>
-                <br/>
-                <p id="kontError" class="errorHid">* Füllen Sie richtig Felder aus.</p>
-                <input type="button" id="kontactSend" class="btn btn-primary" value="Senden"/>
+                    <br/>
+                    <input type="button" class="btn btn-primary" value="Senden"/>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <footer th:include="fragments/tmpl :: footer"></footer>
