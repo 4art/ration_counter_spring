@@ -35,7 +35,6 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `active` bit(1) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
