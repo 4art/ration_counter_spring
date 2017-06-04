@@ -24,4 +24,11 @@ public class RationController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public ModelAndView contactView(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("contact");
+        return modelAndView;
+    }
+
 }
