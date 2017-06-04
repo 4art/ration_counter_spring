@@ -25,6 +25,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
+                    <li th:if="${login}"><a href="/my_rat" style="color: #4cae4c" th:utext="${login}"></a></li>
                     <li class="active"><a href="/">Home</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Ernährung <span class="caret"></span></a>
@@ -40,6 +41,7 @@
                     <li class="resp_hid"><a class="hidden"><input type="button" class="btn btn-success btn-xs" style="margin-top:-4px;" id="loginExit" value="Abmelden"></a></li>
                     <li><a href="/signup"><!--<span class="glyphicon glyphicon-user">--></span> Registration</a></li>
                     <li><a href="/signin"><!--<span class="glyphicon glyphicon-log-in">--></span> Einloggen</a></li>
+                    <li th:if="${login}"><a th:href="@{/logout}">Logout</a></li>
                 </ul>
             </div>
         </div>
