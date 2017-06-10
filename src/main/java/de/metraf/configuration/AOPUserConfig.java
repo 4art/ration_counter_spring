@@ -23,6 +23,8 @@ import java.util.logging.Logger;
 public class AOPUserConfig {
     @Autowired
     private UserService userService;
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void requestMapping() {
@@ -45,7 +47,8 @@ public class AOPUserConfig {
             modelAndView.addObject("login", user.getName());
             System.out.println("username added");
         }catch (Exception e){
-            System.out.println("Auth exeption");
+            logger.info("Auth exeption: " + e.toString());
+            modelAndView.addObject("login", "Gast");
         }
         return modelAndView;
     }
