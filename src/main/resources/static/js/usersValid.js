@@ -6,30 +6,21 @@ var app = angular.module('valid', []);
 app.controller('validRegist', function ($scope, $http) {
     var error = new uniqFunc();
     $('#registLogin').on("keyup keydown change blur", function () {
-        if ($.trim($(this).val()).length > 3) {
+        if ($.trim($(this).val()).length != 0) {
+            var element = $(this);
             $http.get('api/checkNewName/' + $(this).val()).then(function (response) {
                 // console.log(response);
                 if (response.data.uniq) {
-                    error.setSuccess();
+                    error.setSuccess(element);
                 }
                 else {
-                    error.setError();
+                    error.setError(element);
                 }
 
             });
         }
     });
-    $scope.saveNewUser = function () {
-        // console.log('test');
-        if ($scope.registForm.$valid) {
-            var data = {
-                name: $scope.regist.login.toLowerCase(),
-                email: $scope.regist.email,
-                password: $scope.regist.password
-            };
-            console.log(JSON.stringify(data));
-        }
-    };
+
 });
 
 app.directive('pwCheck', [function () {
@@ -52,15 +43,24 @@ var uniqFunc = function () {
         button: $('#reg_but'),
         errorMes: $('#errorName')
     };
-    this.setError = function () {
-        this.elements.name.parent().addClass('has-error');
-        this.elements.errorMes.removeClass('hidden');
+    this.setError = function (element) {
+        if(checkLength(element)){
+            this.elements.name.parent().addClass('has-error');
+            this.elements.errorMes.removeClass('hidden');
+        }
         // this.elements.button.disable(true);
         this.elements.button.attr('disabled', true);
     };
-    this.setSuccess = function () {
-        this.elements.name.parent().removeClass('has-error');
-        this.elements.errorMes.addClass('hidden');
+    this.setSuccess = function (element) {
+        if(checkLength(element)){
+            this.elements.name.parent().removeClass('has-error');
+            this.elements.errorMes.addClass('hidden');
+        }
         // this.elements.button.attr('disabled', false);
     };
+    function checkLength(element) {
+        var bool;
+        $.trim(element.val()).length >= 3 ? bool = true : bool = false;
+        return bool;
+    }
 };

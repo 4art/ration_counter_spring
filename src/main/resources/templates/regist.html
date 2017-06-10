@@ -10,66 +10,66 @@
 
 <div class="container">
     <div th:include="fragments/tmpl :: nav-bar"></div>
-
-    <form class="form-signin" name="registForm" th:action="@{/signup}" th:object="${user}"  method="POST">
+    <h2>{{registForm.regist.login}}</h2>
+    <form class="form-signin" name="registForm" th:action="@{/signup}" th:object="${user}" method="POST">
         <!-- <h2 class="form-signin-heading">Bitte Loggen Sie sich ein.</h2>-->
         <div class="form-group"
-             ng-class="{ 'has-error' : registForm.registLogin.$dirty && registForm.registLogin.$invalid}">
+             ng-class="{ 'has-error' : registForm.name.$dirty && registForm.name.$invalid}" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
             <label for="registLogin" class="sr-only">login</label>
-            <input type="text" id="registLogin" th:field="*{name}" ng-model="regist.login" class="form-control"
+            <input type="text" id="registLogin" th:field="*{name}" name="name" ng-model="regist.login" class="form-control"
                    placeholder="Login" ng-minlength="3" ng-maxlength="20" required autofocus>
             <span class="errorVis hidden" id="errorName">Die Name ist schon besetzt.</span>
             <span class="errorVis" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
             <span class="errorVis"
-                  ng-show="registForm.registLogin.$dirty && registForm.registLogin.$invalid">
+                  ng-show="registForm.name.$dirty && registForm.name.$invalid">
 
-                    <span class="errorVis" ng-show="registForm.registLogin.$error.required">Das ist ein Pflichtfeld.</span>
-                    <span class="errorVis" ng-show="registForm.registLogin.$error.minlength">Das Login ist zu kurz.</span>
-                    <span class="errorVis" ng-show="registForm.registLogin.$error.maxlength">Das Login ist zu lang.</span>
-                    <span class="errorVis" ng-show="registForm.registLogin.$error.notUniq">Die Name ist schon besetzt.</span>
+                    <span class="errorVis" ng-show="registForm.name.$error.required">Das ist ein Pflichtfeld.</span>
+                    <span class="errorVis" ng-show="registForm.name.$error.minlength">Das Login ist zu kurz.</span>
+                    <span class="errorVis" ng-show="registForm.name.$error.maxlength">Das Login ist zu lang.</span>
+                    <span class="errorVis" ng-show="registForm.name.$error.notUniq">Die Name ist schon besetzt.</span>
             </span>
         </div>
         <div class="form-group"
-             ng-class="{ 'has-error' : registForm.registEmail.$dirty && registForm.registEmail.$invalid}">
+             ng-class="{ 'has-error' : registForm.email.$dirty && registForm.email.$invalid}" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
             <label for="inputEmail_Reg" class="sr-only">Email</label>
-            <input type="email" id="inputEmail_Reg" ng-model="regist.email" th:field="*{email}" class="form-control"
+            <input type="email" id="inputEmail_Reg" ng-model="regist.email" name="email" th:field="*{email}" class="form-control"
                    placeholder="Email" required autofocus>
             <span class="errorVis" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             <span class="errorVis"
-                  ng-show="registForm.registEmail.$dirty && registForm.registEmail.$invalid">
-                    <span class="errorVis" ng-show="registForm.registEmail.$error.required">Das ist ein Pflichtfeld.</span>
-                    <span class="errorVis" ng-show="registForm.registEmail.$invalid">Das Email ist invalid.</span>
+                  ng-show="registForm.email.$dirty && registForm.email.$invalid">
+                    <span class="errorVis" ng-show="registForm.email.$error.required">Das ist ein Pflichtfeld.</span>
+                    <span class="errorVis" ng-show="registForm.email.$invalid">Das Email ist invalid.</span>
             </span>
         </div>
         <div class="form-group"
-             ng-class="{ 'has-error' : registForm.registPassword.$dirty && registForm.registPassword.$invalid}">
-            <label for="inputPassword_Reg_re" class="sr-only" ng-minlength="3" ng-maxlength="50">Kennword</label>
-            <input type="password" id="registPassword" class="form-control" ng-model="regist.password"
-                   name="registPassword" placeholder="Kennword" th:field="*{password}" required>
+             ng-class="{ 'has-error' : registForm.password.$dirty && registForm.password.$invalid}" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
+            <label for="inputPassword_Reg_re" class="sr-only">Kennword</label>
+            <input type="password" id="password" class="form-control" ng-minlength="3" ng-maxlength="250" name="password" ng-model="regist.password"
+                   placeholder="Kennword" th:field="*{password}" required>
             <span class="errorVis" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             <span class="errorVis"
-                  ng-show="registForm.registPassword.$dirty && registForm.registPassword.$invalid">
+                  ng-show="registForm.password.$dirty && registForm.password.$invalid">
 
-                    <span class="errorVis" ng-show="registForm.registPassword.$error.required">Das ist ein Pflichtfeld.</span>
-                    <span class="errorVis" ng-show="registForm.registPassword.$error.minlength">Das Kennwort ist zu kurz.</span>
-                    <span class="errorVis" ng-show="registForm.registPassword.$error.maxlength">Das Kennwort ist zu lang.</span>
+                    <span class="errorVis" ng-show="registForm.password.$error.required">Das ist ein Pflichtfeld.</span>
+                    <span class="errorVis" ng-show="registForm.password.$error.minlength">Das Kennwort ist zu kurz.</span>
+                    <span class="errorVis" ng-show="registForm.password.$error.maxlength">Das Kennwort ist zu lang.</span>
             </span>
         </div>
         <div class="form-group"
-             ng-class="{ 'has-error' : registForm.registPasswordAgain.$dirty && registForm.registPasswordAgain.$invalid}">
+             ng-class="{ 'has-error' : registForm.confirmPassword.$dirty && registForm.confirmPassword.$invalid}" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
             <label for="inputPassword_Reg_re" class="sr-only">Kennwort wiederholen</label>
-            <input type="password" id="inputPassword_Reg_re" class="form-control" name="registPasswordAgain"
+            <input type="password" id="inputPassword_Reg_re" class="form-control" name="passwordAgain"
                    ng-model="regist.passwordAgain" ng-minlength="3" ng-maxlength="50" th:field="*{confirmPassword}" class="form-control"
-                   placeholder="Kennword wieder" pw-check="registPassword" required>
+                   placeholder="Kennword wieder" pw-check="password" required>
             <span class="errorVis" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             <span class="errorVis"
-                  ng-show="registForm.registPasswordAgain.$dirty && registForm.registPasswordAgain.$invalid">
+                  ng-show="registForm.confirmPassword.$dirty && registForm.confirmPassword.$invalid">
 
-                    <span class="errorVis" ng-show="registForm.registPasswordAgain.$error.required">Das ist ein Pflichtfeld.</span>
-                    <span class="errorVis" ng-show="registForm.registPasswordAgain.$error.minlength">Das Kennwort ist zu kurz.</span>
-                    <span class="errorVis" ng-show="registForm.registPasswordAgain.$error.maxlength">Das Kennwort ist zu lang.</span>
-                    <span class="errorVis" ng-show='registForm.registPasswordAgain.$error.pwmatch'>Die Kennwörter sind nicht gleich.</span>
+                    <span class="errorVis" ng-show="registForm.confirmPassword.$error.required">Das ist ein Pflichtfeld.</span>
+                    <span class="errorVis" ng-show="registForm.confirmPassword.$error.minlength">Das Kennwort ist zu kurz.</span>
+                    <span class="errorVis" ng-show="registForm.confirmPassword.$error.maxlength">Das Kennwort ist zu lang.</span>
+                    <span class="errorVis" ng-show='registForm.confirmPassword.$error.pwmatch'>Die Kennwörter sind nicht gleich.</span>
             </span>
         </div>
         <!--<p class="errorVis" id="error_regist">* Füllen Sie alle Felder richtig aus.</p>-->

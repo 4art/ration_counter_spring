@@ -89,12 +89,7 @@
         </table>
     </div>
     <button type="button" class="btn btn-primary" ng-click="addRation()" id="addColumn">Hinzufügen</button>
-    <br>
-    <div ng-messages="form.autoAddress.$error" ng-if="form.autoAddress.$touched">
-        <div class="error-message" ng-message="required">Please enter a valid address</div>
-        <div class="error-message" ng-message="autocomplete-required">Please enter a valid address from dropdown</div>
-    </div>
-    <p id="errorText" class="errorHid">*Fühllen Sie richtig die passende Felder aus.</p>
+
     </form>
     <br/><br/>
     <div class="hidden" id="sessionSuccess">
@@ -119,6 +114,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Neue Datei<a id="modalAdd" data-dismiss="modal"> hinzufügen.</a></h4>
                 </div>
+                <!--dialog to add new product-->
                 <div class="modal-body">
                     <form name="newProducts" ng-submit="saveNewProducts()">
                         <tr>
@@ -136,7 +132,7 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : newProducts.newProtein.$dirty && newProducts.newProtein.$invalid}">
 
-                                        <input type="number" step="any" name="newProtein" ng-model="newProd.protein"
+                                    <input type="number" step="any" name="newProtein" ng-model="newProd.protein"
                                            placeholder="Eiweis pro 100 gr." class="form-control" min="0" required>
                                 </div>
                             </td>
@@ -144,7 +140,8 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : newProducts.newFat.$dirty && newProducts.newFat.$invalid}">
 
-                                    <input type="number" step="any" class="form-control" ng-model="newProd.fat" name="newFat"
+                                    <input type="number" step="any" class="form-control" ng-model="newProd.fat"
+                                           name="newFat"
                                            placeholder="Fette pro 100 gr." min="0"
                                            required>
                                 </div>
@@ -161,13 +158,16 @@
                             <td>
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : newProducts.newKcal.$dirty && newProducts.newKcal.$invalid}">
-                                    <input type="number" step="any" name="newKcal" class="form-control" ng-model="newProd.kcal"
+                                    <input type="number" step="any" name="newKcal" class="form-control"
+                                           ng-model="newProd.kcal"
                                            placeholder="Kcal pro 100 gr." min="0"
                                            required>
                                 </div>
                             </td>
                         </tr>
-                        <button type="submit" class="btn btn-primary" ng-disabled="newProducts.$invalid">Neues Lebensmittel hinzufügen</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="newProducts.$invalid">Neues
+                            Lebensmittel hinzufügen
+                        </button>
                     </form>
                     <br>
                     <span ng-bind="errorSum" class="errorVis"></span>

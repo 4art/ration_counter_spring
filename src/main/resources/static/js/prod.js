@@ -30,12 +30,16 @@ app.controller('productsCtrl', function ($scope, $http) {
                 $scope.weight = 0;
                 // console.log($scope.ration);
             };
+
             $scope.removeItem = function (x) {
                 $scope.ration.splice(x, 1);
                 for (var i = 0; i < $scope.ration.length; i++) {
                     $scope.ration[i].counter = i + 1;
                 }
             };
+            /**
+             * save new product from dialog & validation
+             */
             $scope.saveNewProducts = function () {
                 if ($scope.newProducts.$valid) {
                     // console.log($scope.newProducts);

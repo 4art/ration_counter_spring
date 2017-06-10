@@ -45,7 +45,6 @@ public class Contact {
     @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String email;
 
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private String dateTime;
 
     public String getDateTime() {
