@@ -36,7 +36,6 @@ public class ContactServiceImplTest {
             contact.setText(text);
             contact.setName("metraf");
             contact.setEmail("firsov.tyoma@gmail.com");
-            contact.setDateTime(dateTimeParts[0] + " " + dateTimeParts[1]);
             contactService.save(contact);
     }
     @Test

@@ -5,6 +5,7 @@ import de.metraf.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +34,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact save(Contact contact) {
+        String[] dateTimeParts = LocalDateTime.now().toString().split("T");
+        contact.setDateTime(dateTimeParts[0] + " " + dateTimeParts[1]);
         Contact savedContact = contactRepository.save(contact);
         return savedContact;
     }
