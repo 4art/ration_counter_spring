@@ -10,7 +10,6 @@
 
 <div class="container">
     <div th:include="fragments/tmpl :: nav-bar"></div>
-    <h2>{{registForm.regist.login}}</h2>
     <form class="form-signin" name="registForm" th:action="@{/signup}" th:object="${user}" method="POST">
         <!-- <h2 class="form-signin-heading">Bitte Loggen Sie sich ein.</h2>-->
         <div class="form-group"
