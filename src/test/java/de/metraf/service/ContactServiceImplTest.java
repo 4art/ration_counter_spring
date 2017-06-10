@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,15 +25,18 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class ContactServiceImplTest {
     private String text = "Some text";
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private ContactService contactService;
     @Before
     public void add2DB() throws Exception {
-            Contact contact = new Contact();
+        String[] dateTimeParts = LocalDateTime.now().toString().split("T");
+        Contact contact = new Contact();
             contact.setText(text);
             contact.setName("metraf");
             contact.setEmail("firsov.tyoma@gmail.com");
-            contact.setDateTime(LocalDateTime.now());
+            contact.setDateTime(dateTimeParts[0] + " " + dateTimeParts[1]);
             contactService.save(contact);
     }
     @Test
@@ -57,6 +61,14 @@ public class ContactServiceImplTest {
     public void removeFromDB(){
         Contact contact = contactService.findByText(text);
         contactService.delete(contact.getId());
+    }
+
+    @Test
+    public void localDatetime() throws Exception {
+        LocalDateTime dateTime = LocalDateTime.now();
+        String[] dateTimeParts = dateTime.toString().split("T");
+
+        logger.info(dateTimeParts[0] + " " + dateTimeParts[1]);
     }
 
 

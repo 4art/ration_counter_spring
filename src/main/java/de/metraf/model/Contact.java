@@ -45,14 +45,14 @@ public class Contact {
     @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String email;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime dateTime;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private String dateTime;
 
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 

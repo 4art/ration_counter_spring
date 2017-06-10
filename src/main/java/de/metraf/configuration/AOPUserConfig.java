@@ -48,7 +48,7 @@ public class AOPUserConfig {
             System.out.println("username added");
         }catch (Exception e){
             logger.info("Auth exeption: " + e.toString());
-            modelAndView.addObject("login", "Gast");
+//            modelAndView.addObject("login", "Gast");
         }
         return modelAndView;
     }
