@@ -23,7 +23,6 @@ import static org.junit.Assert.*;
 public class ProductServiceImplTest {
     @Autowired
     private ProductService productService;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Test
     public void findAll() throws Exception {
