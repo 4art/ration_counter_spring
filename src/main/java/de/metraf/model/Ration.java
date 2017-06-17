@@ -1,5 +1,7 @@
 package de.metraf.model;
 
+import com.sun.org.apache.bcel.internal.generic.FALOAD;
+
 import javax.persistence.*;
 
 /**
@@ -11,13 +13,33 @@ public class Ration {
     private Long id;
     @Column(name = "weight")
     private double weight;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productID")
-    private Product product;
+    private int user_id;
+    private Long productID;
+    private String datetime;
 
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Long productID) {
+        this.productID = productID;
+    }
     public Long getId() {
         return id;
     }
@@ -34,19 +56,4 @@ public class Ration {
         this.weight = weight;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

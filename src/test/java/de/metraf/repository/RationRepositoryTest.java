@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import static org.junit.Assert.*;
@@ -30,46 +31,55 @@ public class RationRepositoryTest {
     @Autowired
     private ProductsRepository productsRepository;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Long id = 500L;
-    private double weight = 200.00;
-
-//    @Before
-//    public void saveRation() throws Exception {
-//        Ration ration = new Ration();
-//        ration.setId(id);
-//        ration.setProduct(getOneProduct());
-//        ration.setUser(getOneUser());
-//        ration.setWeight(weight);
-//        rationRepository.save(ration);
-//    }
+    private int user_id;
+    @Before
+    public void saveRation() throws Exception {
+        Ration ration = new Ration();
+        User user = getOneUser();
+        Product product = getOneProduct();
+        ration.setProductID(product.getId());
+        ration.setUser_id(2);
+        ration.setWeight(200.3);
+        String[] dateTimeParts = LocalDateTime.now().toString().split("T");
+        ration.setDatetime(dateTimeParts[0] + " " + dateTimeParts[1]);
+        rationRepository.save(ration);
+    }
 
     @Test
     public void checkRation() throws Exception {
+
         Collection<Ration> ration = rationRepository.findAll();
         assertNotNull(ration);
-        for(Ration r : ration){
+    }
+    @Test
+    public void findByUserID() throws Exception{
+        Collection<Ration> rations = rationRepository.findByUserID(user_id);
+        assertNotNull(rations);
+    }
 
-            logger.info(r.toString());
+    @Test
+    public void findByUserIDBetweenTimes() throws Exception{
+        String[] dateTimeParts = LocalDateTime.now().toString().split("T");
+        Collection<Ration> rations = rationRepository.findByUserIDBetweenTimes(user_id, "2017-01-01 00:00:00", dateTimeParts[1] + "23:59:59");
+        logger.info(String.valueOf(rations.size()));
+        for(Ration r : rations){
+            logger.info(String.valueOf(r.getId()) + " " + r.getDatetime());
         }
+        assertNotNull(rations);
     }
 
-    @Test
-    public void checkGetOne() throws Exception {
-        Ration ration = rationRepository.findOne(2L);
-        assertNotNull(ration);
-    }
 
-    @Test
-    public void checkUsersAndProducts() throws Exception{
-        assertNotNull(getOneUser());
-        assertNotNull(getOneProduct());
+    @After
+    public void removeRation(){
+        Collection<Ration> rations = rationRepository.findAll();
+        Ration ration = new Ration();
+        for (Ration p : rations) {
+            ration = p;
+            break;
+        }
+        rationRepository.delete(ration.getId());
+        assertNull(rationRepository.findOne(ration.getId()));
     }
-
-//    @After
-//    private void deleteByID(){
-//        rationRepository.delete(id);
-////        assertNull(rationRepository.findOne(id));
-//    }
 
     private User getOneUser() throws Exception {
         Collection<User> users = userRepository.findAll();

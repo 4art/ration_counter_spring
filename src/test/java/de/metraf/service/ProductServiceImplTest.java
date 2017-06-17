@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Set;
@@ -29,21 +30,21 @@ public class ProductServiceImplTest {
         Set<Product> products = productService.findAll();
         assertNotNull(products);
     }
-
+    @Async
     @Test
     public void findOne() throws Exception {
         Product product = productService.findOne(1L);
         assertNotNull(product);
         logger.debug(product.getId() + " " +product.getName());
     }
-
+    @Async
     @Test
     public void findByName() throws Exception {
         Product product = productService.findByName("bla");
         assertNotNull(product);
         logger.debug(product.getId() + " " +product.getName());
     }
-
+    @Async
     @Before
     public void save() throws Exception {
         Product product = new Product();
