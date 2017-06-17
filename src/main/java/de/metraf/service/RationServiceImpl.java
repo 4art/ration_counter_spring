@@ -33,16 +33,26 @@ public class RationServiceImpl implements RationService {
     public void delete(Long id) {
         rationRepository.delete(id);
     }
-
     @Override
     public Ration findOne(Long id) {
         return rationRepository.findOne(id);
     }
 
-//    @Override
-//    public Collection<Ration> findByUserID(int userID) {
-//        Collection<Ration> rations = findByUserID(userID);
-//        return rations;
-//    }
+    @Override
+    public Collection<Ration> findByUserID(int user_id) {
+        return rationRepository.findByUserID(user_id);
+    }
+
+    @Override
+    public Collection<Ration> findByUserIDBetweenTimes(int user_id, String startDatetime, String endDateTime) {
+
+        return rationRepository.findByUserIDBetweenTimes(user_id, startDatetime, endDateTime);
+    }
+
+    @Override
+    public Collection<Ration> findByProductID(Long productID) {
+        return rationRepository.findByProductID(productID);
+    }
+
 }
 
