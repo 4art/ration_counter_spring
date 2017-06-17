@@ -32,6 +32,7 @@ public class RationRepositoryTest {
     private ProductsRepository productsRepository;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private int user_id;
+    private Long productID;
     @Before
     public void saveRation() throws Exception {
         Ration ration = new Ration();
@@ -43,13 +44,21 @@ public class RationRepositoryTest {
         String[] dateTimeParts = LocalDateTime.now().toString().split("T");
         ration.setDatetime(dateTimeParts[0] + " " + dateTimeParts[1]);
         rationRepository.save(ration);
+        user_id = ration.getUser_id();
+        productID = ration.getProductID();
     }
 
     @Test
     public void checkRation() throws Exception {
-
         Collection<Ration> ration = rationRepository.findAll();
         assertNotNull(ration);
+    }
+
+    @Test
+    public void findByProductID() throws Exception{
+        Collection<Ration> rations = rationRepository.findByProductID(productID);
+        logger.info(String.valueOf(rations.size()));
+        assertNotNull(rations);
     }
     @Test
     public void findByUserID() throws Exception{

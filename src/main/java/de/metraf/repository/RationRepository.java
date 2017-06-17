@@ -21,4 +21,6 @@ public interface RationRepository extends JpaRepository<Ration, Long>{
 
     @Query(nativeQuery = true, value = "SELECT * FROM ration WHERE user_id = :user_id AND datetime > :startDatetime AND datetime < :endDateTime ORDER BY datetime DESC")
     Collection<Ration> findByUserIDBetweenTimes(@Param("user_id") int user_id, @Param("startDatetime") String startDatetime, @Param("endDateTime") String endDateTime);
+
+    Collection<Ration> findByProductID(Long productID);
 }
