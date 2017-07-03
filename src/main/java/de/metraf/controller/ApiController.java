@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.util.Set;
 /**
  * Created by metraf on 30.05.17.
  */
+@Async
 @RestController
 @RequestMapping(value = "/api")
 public class ApiController {
