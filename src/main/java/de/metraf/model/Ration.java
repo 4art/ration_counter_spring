@@ -17,6 +17,16 @@ public class Ration {
     private Long productID;
     private String datetime;
 
+    public Ration() {}
+
+    public Ration(double weight, int user_id, Long productID, String datetime) {
+        this.weight = weight;
+        this.user_id = user_id;
+        this.productID = productID;
+        this.datetime = datetime;
+    }
+
+
     public String getDatetime() {
         return datetime;
     }

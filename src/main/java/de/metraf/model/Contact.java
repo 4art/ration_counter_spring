@@ -24,6 +24,15 @@ public class Contact {
     @NotEmpty(message = "*Das ist ein Pflichtfeld")
     private String name;
 
+    public Contact(String text, String name, String email, String dateTime) {
+        this.text = text;
+        this.name = name;
+        this.email = email;
+        this.dateTime = dateTime;
+    }
+
+    public Contact(){}
+
     public String getName() {
         return name;
     }

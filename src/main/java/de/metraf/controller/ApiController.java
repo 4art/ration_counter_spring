@@ -32,6 +32,7 @@ public class ApiController {
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Product>> getAllProducts() {
         Set<Product> products = productService.findAll();
+//        Set<Product> products = null;
         if (products == null) {
             return new ResponseEntity<Set<Product>>(products, HttpStatus.NO_CONTENT);
         }

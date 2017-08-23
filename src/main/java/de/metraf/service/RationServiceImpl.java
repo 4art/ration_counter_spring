@@ -13,8 +13,13 @@ import java.util.Collection;
  */
 @Service
 public class RationServiceImpl implements RationService {
-    @Autowired
     private RationRepository rationRepository;
+
+    @Autowired
+    public RationServiceImpl(RationRepository rationRepository) {
+        this.rationRepository = rationRepository;
+    }
+
     @Override
     public Collection<Ration> findAll() {
         Collection<Ration> rations = rationRepository.findAll();

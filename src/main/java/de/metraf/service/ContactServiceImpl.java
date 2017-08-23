@@ -15,8 +15,14 @@ import java.util.Set;
  */
 @Service
 public class ContactServiceImpl implements ContactService {
-    @Autowired
+
     private ContactRepository contactRepository;
+
+    @Autowired
+    public ContactServiceImpl(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
+
     @Override
     public Set<Contact> findAll() {
         Collection<Contact> contacts = contactRepository.findAll();
@@ -33,6 +39,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+
     public Contact save(Contact contact) {
         String[] dateTimeParts = LocalDateTime.now().toString().split("T");
         contact.setDateTime(dateTimeParts[0] + " " + dateTimeParts[1]);
@@ -48,5 +55,20 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void delete(Long id) {
         contactRepository.delete(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactServiceImpl that = (ContactServiceImpl) o;
+
+        return contactRepository != null ? contactRepository.equals(that.contactRepository) : that.contactRepository == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return contactRepository != null ? contactRepository.hashCode() : 0;
     }
 }

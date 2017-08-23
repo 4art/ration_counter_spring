@@ -18,6 +18,16 @@ public class Product {
     private double carbo;
     private double kcal;
 
+    public Product(String name, double protein, double fat, double carbo, double kcal) {
+        this.name = name;
+        this.protein = protein;
+        this.fat = fat;
+        this.carbo = carbo;
+        this.kcal = kcal;
+    }
+
+    public Product(){}
+
     public Long getId() {
         return id;
     }

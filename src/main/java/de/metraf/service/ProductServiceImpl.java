@@ -14,9 +14,12 @@ import java.util.Set;
  */
 @Service
 public class ProductServiceImpl implements ProductService{
-    @Autowired
     private ProductsRepository productsRepository;
 
+    @Autowired
+    public ProductServiceImpl(ProductsRepository productsRepository) {
+        this.productsRepository = productsRepository;
+    }
 
     @Override
     public Set<Product> findAll() {

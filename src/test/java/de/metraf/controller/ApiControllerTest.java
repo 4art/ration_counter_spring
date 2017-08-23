@@ -33,8 +33,8 @@ public class ApiControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private JacksonTester<Product> productJacksonTester;
+//    @MockBean
+//    private JacksonTester<Product> productJacksonTester;
 
     @Test
     public void getAllProducts() throws Exception {
