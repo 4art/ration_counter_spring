@@ -136,3 +136,13 @@ LOCK TABLES `contact` WRITE;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+CREATE TABLE `security`.`apiKeys` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `key` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL,
+  `site` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+
+INSERT INTO apiKeys (name, `key`, login, site) VALUES ("weather", "b10896caa47947dba2c95319172608", "gi-15971161", "https://api.apixu.com/v1/current.json")
