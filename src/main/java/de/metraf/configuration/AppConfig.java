@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by metraf on 10.05.17.
@@ -28,5 +29,10 @@ public class AppConfig {
             container.addErrorPages(error401Page, error404Page, error500Page);
         });
     }
+
+//    @Bean
+//    public RestTemplate restTemplate(){
+//        return new RestTemplate();
+//    }
 
 }
