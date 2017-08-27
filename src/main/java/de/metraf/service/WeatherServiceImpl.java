@@ -31,7 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
                     weather.getWeatherCurrent().getTemp_c(),
                     weather.getWeatherCurrent().getFeelslike_c(),
                     weather.getWeatherCurrent().getCondition().getText(),
-                    weather.getWeatherCurrent().getCondition().getIcon(),
+                    "https:" + weather.getWeatherCurrent().getCondition().getIcon(),
                     weather.getWeatherCurrent().getWind_mph()
             );
         }catch (Exception e){
