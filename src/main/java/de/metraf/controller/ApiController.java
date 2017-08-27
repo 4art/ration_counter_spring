@@ -2,9 +2,11 @@ package de.metraf.controller;
 
 import de.metraf.model.Product;
 import de.metraf.model.User;
+import de.metraf.model.WeatherModern;
 import de.metraf.repository.ProductsRepository;
 import de.metraf.service.ProductService;
 import de.metraf.service.UserService;
+import de.metraf.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +30,8 @@ public class ApiController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private WeatherService weatherService;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Product>> getAllProducts() {
@@ -63,6 +67,15 @@ public class ApiController {
         Map res = new HashMap();
         res.put("uniq", user == null ? true : false);
         return new ResponseEntity<Map>(res, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/weather/{city}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<WeatherModern> getWeatherByCity(@PathVariable String city){
+        WeatherModern weatherModern = weatherService.getWeatherModern(city);
+        if(weatherModern != null){
+            return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.OK);
+        }
+        return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.NOT_FOUND);
     }
 
 
