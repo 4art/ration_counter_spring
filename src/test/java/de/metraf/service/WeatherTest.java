@@ -26,24 +26,6 @@ public class WeatherTest {
     private WeatherService weatherService;
 
     @Test
-    public void WeatherTest() throws Exception {
-        Weather weather = fetchDataFromAPI();
-        assertNotNull(weather);
-        assertNotNull(weather.getLocation());
-        assertNotNull(weather.getWeatherCurrent());
-    }
-
-    private Weather fetchDataFromAPI() {
-        ResponseEntity<Weather> responseEntity = restTemplate.getForEntity(
-                "http://api.apixu.com/v1/current.json?key=b10896caa47947dba2c95319172608&q=Frankfurt",
-                Weather.class
-        );
-        Weather weather = responseEntity.getBody();
-        Object o = responseEntity.getBody();
-        return weather;
-    }
-
-    @Test
     public void checkApiKeys() throws Exception {
         Collection<ApiKey> apiKeys = apiKeyService.findAll();
         assertNotNull(apiKeys);
