@@ -1,19 +1,21 @@
 package de.metraf.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "apiKeys")
+@Table(name = "apiKey")
 public class ApiKey {
     @Id @GeneratedValue
+    @Column(name = "id", unique = false)
     private Long id;
+    @Column(name = "name", unique = false)
     private String name;
+    @Column(name = "key", unique = false)
     private String key;
+    @Column(name = "login", unique = false)
     private String login;
+    @Column(name = "site", unique = false)
     private String site;
 
     public ApiKey() {
