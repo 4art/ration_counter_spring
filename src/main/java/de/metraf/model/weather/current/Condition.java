@@ -1,17 +1,17 @@
 package de.metraf.model.weather.current;
 
-public class WeatherCondition {
+public class Condition {
     private String text;
     private String icon;
     private int code;
 
-    public WeatherCondition(String text, String icon, int code) {
+    public Condition(String text, String icon, int code) {
         this.text = text;
         this.icon = icon;
         this.code = code;
     }
 
-    public WeatherCondition() {
+    public Condition() {
     }
 
     public String getText() {

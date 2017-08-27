@@ -1,5 +1,7 @@
 package de.metraf.configuration;
 
+import de.metraf.service.WeatherService;
+import de.metraf.service.WeatherServiceImpl;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +32,14 @@ public class AppConfig {
         });
     }
 
-//    @Bean
-//    public RestTemplate restTemplate(){
-//        return new RestTemplate();
-//    }
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+
+    @Bean
+    public WeatherService weatherService(){
+        return new WeatherServiceImpl();
+    }
 
 }

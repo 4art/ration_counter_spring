@@ -4,7 +4,6 @@ package de.metraf.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "apiKey")
 public class ApiKey {
     @Id @GeneratedValue
     @Column(name = "id", unique = false)

@@ -1,20 +1,17 @@
 package de.metraf.service;
 
 import de.metraf.model.ApiKey;
+import de.metraf.model.WeatherModern;
 import de.metraf.model.weather.Weather;
-import de.metraf.model.weather.WeatherLocation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -23,16 +20,17 @@ import static org.junit.Assert.assertNotNull;
 public class WeatherTest {
     @Autowired
     private ApiKeyService apiKeyService;
-//    @Autowired
-    private RestTemplate restTemplate = new RestTemplate();
-
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private WeatherService weatherService;
 
     @Test
     public void WeatherTest() throws Exception {
         Weather weather = fetchDataFromAPI();
         assertNotNull(weather);
-        WeatherLocation location = weather.getLocation();
-        assertNotNull(location);
+        assertNotNull(weather.getLocation());
+        assertNotNull(weather.getWeatherCurrent());
     }
 
     private Weather fetchDataFromAPI() {
@@ -41,6 +39,7 @@ public class WeatherTest {
                 Weather.class
         );
         Weather weather = responseEntity.getBody();
+        Object o = responseEntity.getBody();
         return weather;
     }
 
@@ -48,6 +47,17 @@ public class WeatherTest {
     public void checkApiKeys() throws Exception {
         Collection<ApiKey> apiKeys = apiKeyService.findAll();
         assertNotNull(apiKeys);
+        ApiKey apiKey = apiKeyService.findByName("weather");
+        assertNotNull(apiKey);
+        String site = String.format("%s?key=%s&q=%s", apiKey.getSite(), apiKey.getKey(), "Frankfurt");
+        System.out.println(site);
+    }
+
+    @Test
+    public void weatherServiceCheck() throws Exception{
+        WeatherModern weatherModern = weatherService.getWeatherModern("Frankfurt");
+        assertNotNull(weatherModern);
+        System.out.println(weatherModern.getTemp());
     }
 
 }

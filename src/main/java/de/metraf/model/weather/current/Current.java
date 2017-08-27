@@ -1,12 +1,15 @@
 package de.metraf.model.weather.current;
 
-public class WeatherCurrent {
+import lombok.Getter;
+
+@Getter
+public class Current {
     private int last_updated_epoch;
     private String last_updated;
     private double temp_c;
     private double temp_f;
     private int is_day;
-    private WeatherCondition condition;
+    private Condition condition;
     private double wind_mph;
     private int wind_kph;
     private int wind_degree;
@@ -22,7 +25,7 @@ public class WeatherCurrent {
     private int vis_km;
     private int vis_miles;
 
-    public WeatherCurrent(int last_updated_epoch, String last_updated, double temp_c, double temp_f, int is_day, WeatherCondition condition, double wind_mph, int wind_kph, int wind_degree, String wind_dir, int pressure_mb, double pressure_in, int precip_mm, int precip_in, int humidity, int cloud, double feelslike_c, double feelslike_f, int vis_km, int vis_miles) {
+    public Current(int last_updated_epoch, String last_updated, double temp_c, double temp_f, int is_day, Condition condition, double wind_mph, int wind_kph, int wind_degree, String wind_dir, int pressure_mb, double pressure_in, int precip_mm, int precip_in, int humidity, int cloud, double feelslike_c, double feelslike_f, int vis_km, int vis_miles) {
         this.last_updated_epoch = last_updated_epoch;
         this.last_updated = last_updated;
         this.temp_c = temp_c;
@@ -45,7 +48,7 @@ public class WeatherCurrent {
         this.vis_miles = vis_miles;
     }
 
-    public WeatherCurrent() {
+    public Current() {
     }
 
     public int getLast_updated_epoch() {
@@ -88,11 +91,11 @@ public class WeatherCurrent {
         this.is_day = is_day;
     }
 
-    public WeatherCondition getCondition() {
+    public Condition getCondition() {
         return condition;
     }
 
-    public void setCondition(WeatherCondition condition) {
+    public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
