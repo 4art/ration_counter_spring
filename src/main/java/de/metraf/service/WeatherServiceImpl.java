@@ -17,6 +17,15 @@ public class WeatherServiceImpl implements WeatherService {
     ApiKeyService apiKeyService;
     private static final Logger logger = LoggerFactory.getLogger(WeatherServiceImpl.class);
 
+
+    public WeatherServiceImpl(RestTemplate restTemplate, ApiKeyService apiKeyService) {
+        this.restTemplate = restTemplate;
+        this.apiKeyService = apiKeyService;
+    }
+
+    public WeatherServiceImpl() {
+    }
+
     @Override
     public WeatherModern getWeatherModern(String city) {
         try {
@@ -28,6 +37,7 @@ public class WeatherServiceImpl implements WeatherService {
                     weather.getLocation().getRegion(),
                     weather.getLocation().getCountry(),
                     weather.getLocation().getLocaltime(),
+
                     weather.getWeatherCurrent().getTemp_c(),
                     weather.getWeatherCurrent().getFeelslike_c(),
                     weather.getWeatherCurrent().getCondition().getText(),
@@ -38,6 +48,14 @@ public class WeatherServiceImpl implements WeatherService {
             logger.error(e.toString());
         }
         return null;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public void setApiKeyService(ApiKeyService apiKeyService) {
+        this.apiKeyService = apiKeyService;
     }
 
     @Override
