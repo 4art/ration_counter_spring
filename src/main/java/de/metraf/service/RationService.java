@@ -1,5 +1,6 @@
 package de.metraf.service;
 
+import de.metraf.model.ProductRation;
 import de.metraf.model.Ration;
 import org.springframework.scheduling.annotation.Async;
 
@@ -17,4 +18,5 @@ public interface RationService {
     Collection<Ration> findByUserID(int user_id);
     Collection<Ration> findByUserIDBetweenTimes(int user_id, String startDatetime, String endDateTime);
     Collection<Ration> findByProductID(Long productID);
+    void saveRationFromProductCollection(Collection<ProductRation> products);
 }

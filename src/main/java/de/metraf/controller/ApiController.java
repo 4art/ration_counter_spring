@@ -1,10 +1,11 @@
 package de.metraf.controller;
 
 import de.metraf.model.Product;
+import de.metraf.model.ProductRation;
 import de.metraf.model.User;
 import de.metraf.model.WeatherModern;
-import de.metraf.repository.ProductsRepository;
 import de.metraf.service.ProductService;
+import de.metraf.service.RationService;
 import de.metraf.service.UserService;
 import de.metraf.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,6 @@ import java.util.Set;
  */
 @Async
 @RestController
-@RequestMapping(value = "/api")
 public class ApiController {
     @Autowired
     private ProductService productService;
@@ -32,8 +32,10 @@ public class ApiController {
     private UserService userService;
     @Autowired
     private WeatherService weatherService;
+    @Autowired
+    private RationService rationService;
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Product>> getAllProducts() {
         Set<Product> products = productService.findAll();
 //        Set<Product> products = null;
@@ -43,7 +45,7 @@ public class ApiController {
         return new ResponseEntity<Set<Product>>(products, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
         Product product = productService.findOne(id);
         if (product == null) {
@@ -52,7 +54,7 @@ public class ApiController {
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Product> saveProducts(@RequestBody Product product) {
         Product updatedProduct = productService.save(product);
         if (updatedProduct == null) {
@@ -61,7 +63,7 @@ public class ApiController {
         return new ResponseEntity<Product>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/checkNewName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/checkNewName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Map> checkNewName(@PathVariable String name) {
         User user = userService.findByName(name);
         Map res = new HashMap();
@@ -69,14 +71,25 @@ public class ApiController {
         return new ResponseEntity<Map>(res, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/weather/{city}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<WeatherModern> getWeatherByCity(@PathVariable String city){
+    @RequestMapping(value = "/api/weather/{city}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<WeatherModern> getWeatherByCity(@PathVariable String city) {
         WeatherModern weatherModern = weatherService.getWeatherModern(city);
-        if(weatherModern != null){
+        if (weatherModern != null) {
             return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.OK);
         }
         return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/secure/api/saveRation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Map> saveSecureRation(@RequestBody Collection<ProductRation> rationProducts) {
+        Map returnMap = new HashMap();
+        if (rationProducts != null) {
+            returnMap.put("status", "success");
+            rationService.saveRationFromProductCollection(rationProducts);
+            return new ResponseEntity<Map>(returnMap, HttpStatus.OK);
+        }
+        returnMap.put("status", "error");
+        return new ResponseEntity<Map>(returnMap, HttpStatus.NO_CONTENT);
+    }
 
 }

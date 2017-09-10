@@ -92,13 +92,13 @@
 
     </form>
     <br/><br/>
-    <div class="hidden" id="sessionSuccess">
-        <button class="btn btn-danger" id="saveRation">Der Ration ins Profil Speichern</button>
+    <div th:if="${login} != null" id="sessionSuccess">
+        <button class="btn btn-danger" ng-click="saveRation()" id="saveRation">Der Ration ins Profil Speichern</button>
         <a style="margin-left:15px;" href="/myrat">Mein Ration.</a>
 
         <br><br><br><br><br><br><br><br><br>
     </div>
-    <div id="sessionError" class="hidden">
+    <div th:if="${login} == null" id="sessionError">
         <p class="errorVis">Loggen Sie sich ein, damit den Ration ins Profil speichern. <a href="/signin">Einloggen.</a>
         </p>
     </div>

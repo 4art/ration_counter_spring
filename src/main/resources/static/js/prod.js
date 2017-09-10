@@ -18,6 +18,7 @@ app.controller('productsCtrl', function ($scope, $http) {
             });
             $scope.addRation = function () {
                 $scope.ration.push({
+                    id: $('#selectedId').val(),
                     weight: $scope.weight,
                     protein: (parseFloat($('#selectedProtein').val()) * $scope.weight).toFixed(2),
                     fat: (parseFloat($('#selectedFat').val()) * $scope.weight).toFixed(2),
@@ -28,7 +29,6 @@ app.controller('productsCtrl', function ($scope, $http) {
                 });
                 $('#name_value').val('');
                 $scope.weight = 0;
-                // console.log($scope.ration);
             };
 
             $scope.removeItem = function (x) {
@@ -36,6 +36,18 @@ app.controller('productsCtrl', function ($scope, $http) {
                 for (var i = 0; i < $scope.ration.length; i++) {
                     $scope.ration[i].counter = i + 1;
                 }
+            };
+
+            $scope.saveRation = function () {
+                for(var i = 0; i < $scope.ration.length; i++){
+                    delete $scope.ration[i]['$$hashKey'];
+                    delete $scope.ration[i]['counter'];
+                }
+                $http.post("/secure/api/saveRation", $scope.ration).then(function (data) {
+                    console.log(data);
+                });
+                //console.log(JSON.stringify($scope.ration));
+                $scope.ration = [];
             };
             /**
              * save new product from dialog & validation
