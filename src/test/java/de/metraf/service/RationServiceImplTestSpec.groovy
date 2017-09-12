@@ -1,5 +1,7 @@
 package de.metraf.service
 
+import de.metraf.model.Product
+import de.metraf.model.ProductRation
 import de.metraf.model.Ration
 import de.metraf.repository.RationRepository
 import spock.lang.Specification
@@ -107,6 +109,25 @@ class RationServiceImplTestSpec extends Specification {
         then:
         1 * service.findByProductID(_ as Long)
         1 * repository.findByProductID(_ as Long)
+    }
+
+    def "getListProductRationToListRation"(){
+        given:
+        Collection<Ration> rationCollection = Arrays.asList(
+                new Ration(200, 1, 1L, getDateTime()),
+                new Ration(300, 1, 1L, getDateTime())
+        )
+        RationService service = new RationServiceImpl(repository)
+        ProductService productService = Stub()
+        when:
+        productService.findOne(_ as Long) >> new Product("kaki", 0.1, 0.1, 0.1, 100)
+        service.setProductService(productService)
+        Collection<ProductRation> productRationCollection = service.getListProductRationToListRation(rationCollection)
+        then:
+        productRationCollection != null
+        productRationCollection.size() == 2
+        productRationCollection instanceof Collection<ProductRation>
+
     }
 
     private String getDateTime(){

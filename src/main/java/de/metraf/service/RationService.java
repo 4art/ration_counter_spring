@@ -19,4 +19,5 @@ public interface RationService {
     Collection<Ration> findByUserIDBetweenTimes(int user_id, String startDatetime, String endDateTime);
     Collection<Ration> findByProductID(Long productID);
     void saveRationFromProductCollection(Collection<ProductRation> products);
+    Collection<ProductRation> getListProductRationToListRation(Collection<Ration> rations);
 }

@@ -1,9 +1,11 @@
 package de.metraf.service;
 
+import de.metraf.model.Product;
 import de.metraf.model.ProductRation;
 import de.metraf.model.Ration;
 import de.metraf.model.User;
 import de.metraf.repository.RationRepository;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Created by metraf on 16.06.17.
@@ -21,13 +24,30 @@ public class RationServiceImpl implements RationService {
     private RationRepository rationRepository;
     @Autowired
     private UserService userService;
-
+    @Autowired
+    ProductService productService;
     @Autowired
     public RationServiceImpl(RationRepository rationRepository) {
         this.rationRepository = rationRepository;
     }
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public void setRationRepository(RationRepository rationRepository) {
+        this.rationRepository = rationRepository;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 
     @Override
     public Collection<Ration> findAll() {
@@ -90,6 +110,26 @@ public class RationServiceImpl implements RationService {
         } catch (Exception e) {
             logger.error(e.toString());
         }
+    }
+
+    @Override
+    public Collection<ProductRation> getListProductRationToListRation(Collection<Ration> rations) {
+        Collection<ProductRation> productRations = new LinkedList<>();
+        Long counter = 0L;
+        for(Ration ration : rations){
+            Product product = productService.findOne(ration.getId());
+            productRations.add(new ProductRation(
+               counter,
+                    product.getName(),
+                    product.getProtein() * ration.getWeight(),
+                    product.getFat() * ration.getWeight(),
+                    product.getCarbo() * ration.getWeight(),
+                    product.getCarbo() * ration.getWeight(),
+                    ration.getWeight()
+            ));
+            counter++;
+        }
+        return productRations;
     }
 
 
