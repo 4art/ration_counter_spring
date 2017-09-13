@@ -8,17 +8,18 @@ import de.metraf.service.ProductService;
 import de.metraf.service.RationService;
 import de.metraf.service.UserService;
 import de.metraf.service.WeatherService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by metraf on 30.05.17.
@@ -34,6 +35,7 @@ public class ApiController {
     private WeatherService weatherService;
     @Autowired
     private RationService rationService;
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/api/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Set<Product>> getAllProducts() {
@@ -78,6 +80,22 @@ public class ApiController {
             return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.OK);
         }
         return new ResponseEntity<WeatherModern>(weatherModern, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/api/ration", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Collection<ProductRation>> getProductRation(
+            @RequestParam(value = "from") String from,
+            @RequestParam(value = "to") String to){
+            try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                User user = userService.findUserByEmail(auth.getName());
+                Collection<ProductRation>productRations = rationService.getListProductRationToListRation(rationService.findByUserIDBetweenTimes(user.getId(), new String(Base64Utils.decodeFromString(from)), new String(Base64Utils.decodeFromString(to))));
+                return new ResponseEntity<Collection<ProductRation>>(productRations, HttpStatus.OK);
+            }catch (Exception e){
+                logger.error(e.toString());
+                logger.error("User is unlogged to get his ration");
+                return new ResponseEntity<Collection<ProductRation>>(new ArrayList<ProductRation>(), HttpStatus.NOT_FOUND);
+            }
     }
 
     @RequestMapping(value = "/secure/api/saveRation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

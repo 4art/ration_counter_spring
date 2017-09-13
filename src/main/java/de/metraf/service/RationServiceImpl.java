@@ -83,7 +83,7 @@ public class RationServiceImpl implements RationService {
         return rationRepository.findByUserIDBetweenTimes(user_id, startDatetime, endDateTime);
     }
 
-    private String getDateTime() {
+    public static String getDateTime() {
         String[] dateTimeParts = LocalDateTime.now().toString().split("T");
         return dateTimeParts[0] + " " + dateTimeParts[1];
     }
@@ -121,15 +121,21 @@ public class RationServiceImpl implements RationService {
             productRations.add(new ProductRation(
                counter,
                     product.getName(),
-                    product.getProtein() * ration.getWeight(),
-                    product.getFat() * ration.getWeight(),
-                    product.getCarbo() * ration.getWeight(),
-                    product.getCarbo() * ration.getWeight(),
+                    toTwoFixed(product.getProtein() * ration.getWeight()),
+                    toTwoFixed(product.getFat() * ration.getWeight()),
+                    toTwoFixed(product.getCarbo() * ration.getWeight()),
+                    toTwoFixed(product.getCarbo() * ration.getWeight()),
                     ration.getWeight()
             ));
             counter++;
         }
         return productRations;
+    }
+
+    public static double toTwoFixed(double a){
+        String s = String.format("%.2f", a);
+        s = s.replace(",", ".");
+        return Double.valueOf(s);
     }
 
 

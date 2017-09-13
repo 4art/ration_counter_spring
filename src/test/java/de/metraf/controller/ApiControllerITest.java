@@ -1,9 +1,12 @@
 package de.metraf.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import de.metraf.model.Product;
+import de.metraf.model.ProductRation;
+import de.metraf.model.Ration;
 import de.metraf.model.WeatherModern;
+import de.metraf.service.RationService;
+import de.metraf.service.RationServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +15,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.Base64Utils;
+import sun.misc.BASE64Encoder;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +31,8 @@ import static org.junit.Assert.*;
 public class ApiControllerITest {
     @Autowired
     private org.springframework.boot.test.web.client.TestRestTemplate restTemplate;
+    @Autowired
+    RationService rationService;
 
     @Test
     public void getAllProducts() throws Exception {
@@ -55,6 +60,28 @@ public class ApiControllerITest {
         WeatherModern weatherModern = weatherModernResponseEntity.getBody();
         assertNotNull(weatherModern);
         assertEquals(city, weatherModern.getName());
+    }
+
+    @Test
+    public void getRation() throws Exception {
+        String from = "2017-01-01 00:00:00.262";
+        String to = RationServiceImpl.getDateTime();
+        ResponseEntity<Collection<ProductRation>> collectionResponseEntity = restTemplate.exchange("/api/ration?from=" + Base64Utils.encodeToString(from.getBytes()) + "&to=" + Base64Utils.encodeToString(to.getBytes()), HttpMethod.GET, null,
+                new ParameterizedTypeReference<Collection<ProductRation>>() {
+
+                });
+        Collection<ProductRation> productRations = collectionResponseEntity.getBody();
+        assertNotNull(productRations);
+        assertNotNull(!productRations.isEmpty());
+    }
+
+    @Test
+    public void checkFindAllRation() throws Exception{
+        Collection<Ration> rations = rationService.findAll();
+        assertNotNull(rations);
+        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findAll());
+        assertNotNull(productRations);
+        assertTrue(!productRations.isEmpty());
     }
 
 }
