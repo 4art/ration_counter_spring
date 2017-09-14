@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mein Ration</title>
+    <div th:include="fragments/tmpl :: head"></div>
+</head>
+
+<body>
+
+<div class="container">
+    <div th:include="fragments/tmpl :: nav-bar"></div>
+    <table class="table table-striped">
+        <thead>
+        <th class="col_1"><p>№ ▼</p></th>
+        <th class="col_2"><p>Name<span class="resp_hid"> ▼</span></p></th>
+        <th class="col_3"><p><span class="resp_hid">Gewicht (Gramm)▼ </span><span
+                class="resp_vis">Gewicht (g)</span></p></th>
+        <th class="col_4"><p>Eiweiße<span class="resp_hid"> ▼ </span></p></th>
+        <th class="col_5"><p>Fette<span class="resp_hid"> ▼ </span></p></th>
+        <th class="col_6"><p><span class="resp_hid">Kohlenhydrate ▼ </span><span
+                class="resp_vis">Kohlen-<br>hydraten</span>
+        </p></th>
+        <th class="col_7"><p><span class="resp_hid">Kilokalorien (</span>kcal<span class="resp_hid">)▼ </span>
+        </p></th>
+        </thead>
+        <tbody>
+            <th:block th:each="ration : ${rations}">
+                <tr>
+                    <td th:text="${ration.id} + 1"></td>
+                    <td th:text="${ration.name}"></td>
+                    <td th:text="${ration.weight}"></td>
+                    <td th:text="${ration.protein}"></td>
+                    <td th:text="${ration.fat}"></td>
+                    <td th:text="${ration.carbo}"></td>
+                    <td th:text="${ration.kcal}"></td>
+                </tr>
+
+            </th:block>
+        </tbody>
+    </table>
+    <br><br><br><br><br><br><br><br><br><br>
+    <footer th:include="fragments/tmpl :: footer"></footer>
+    <div th:include="fragments/tmpl :: js"></div>
+</div> <!-- /container -->
+
+
+</body>
+</html>

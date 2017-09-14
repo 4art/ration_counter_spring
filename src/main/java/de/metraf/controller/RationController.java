@@ -1,9 +1,9 @@
 package de.metraf.controller;
 
 import de.metraf.model.Contact;
+import de.metraf.model.ProductRation;
 import de.metraf.model.User;
-import de.metraf.service.ContactService;
-import de.metraf.service.UserService;
+import de.metraf.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-
+import java.util.Collection;
+//todo remove Registration, Einloggen from view for auth users
 /**
  * Created by metraf on 26.05.17.
  */
@@ -24,6 +25,8 @@ public class RationController {
     private ContactService contactService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RationService rationService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView indexView() {
@@ -69,6 +72,16 @@ public class RationController {
         }
 
         modelAndView.setViewName("contact");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/myrat", method = RequestMethod.GET)
+    public ModelAndView myRationView(){
+        User authUser = userService.getAuthUser();
+        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findByUserIDBetweenTimes(authUser.getId(), "2017-01-01 00:00:00", RationServiceImpl.getDateTime()));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("rations", productRations);
+        modelAndView.setViewName("myRation");
         return modelAndView;
     }
 }

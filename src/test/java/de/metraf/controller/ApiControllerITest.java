@@ -63,19 +63,6 @@ public class ApiControllerITest {
     }
 
     @Test
-    public void getRation() throws Exception {
-        String from = "2017-01-01 00:00:00.262";
-        String to = RationServiceImpl.getDateTime();
-        ResponseEntity<Collection<ProductRation>> collectionResponseEntity = restTemplate.exchange("/api/ration?from=" + Base64Utils.encodeToString(from.getBytes()) + "&to=" + Base64Utils.encodeToString(to.getBytes()), HttpMethod.GET, null,
-                new ParameterizedTypeReference<Collection<ProductRation>>() {
-
-                });
-        Collection<ProductRation> productRations = collectionResponseEntity.getBody();
-        assertNotNull(productRations);
-        assertNotNull(!productRations.isEmpty());
-    }
-
-    @Test
     public void checkFindAllRation() throws Exception{
         Collection<Ration> rations = rationService.findAll();
         assertNotNull(rations);
