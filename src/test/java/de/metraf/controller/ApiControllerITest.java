@@ -71,4 +71,9 @@ public class ApiControllerITest {
         assertTrue(!productRations.isEmpty());
     }
 
+    @Test
+    public void getDateTime() throws Exception{
+        System.out.println(RationServiceImpl.getDateTime());
+    }
+
 }

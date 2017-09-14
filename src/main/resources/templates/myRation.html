@@ -4,12 +4,18 @@
 <head>
     <title>Mein Ration</title>
     <div th:include="fragments/tmpl :: head"></div>
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css">
 </head>
 
 <body>
 
 <div class="container">
     <div th:include="fragments/tmpl :: nav-bar"></div>
+    <form id="calenderForm" th:action="@{/myrat}">
+        <input name="from" type="text" id="rationDateFrom" th:value="${from}"/>
+        <input name="to" type="text" id="rationDateTo" th:value="${to}"/>
+        <input type="submit" id="calenderFormButton" class="btn btn-success" value="Senden">
+    </form>
     <table class="table table-striped">
         <thead>
         <th class="col_1"><p>№ ▼</p></th>
@@ -25,25 +31,35 @@
         </p></th>
         </thead>
         <tbody>
-            <th:block th:each="ration : ${rations}">
-                <tr>
-                    <td th:text="${ration.id} + 1"></td>
-                    <td th:text="${ration.name}"></td>
-                    <td th:text="${ration.weight}"></td>
-                    <td th:text="${ration.protein}"></td>
-                    <td th:text="${ration.fat}"></td>
-                    <td th:text="${ration.carbo}"></td>
-                    <td th:text="${ration.kcal}"></td>
-                </tr>
+        <th:block th:each="ration : ${rations}">
+            <tr>
+                <td th:text="${ration.id} + 1"></td>
+                <td th:text="${ration.name}"></td>
+                <td th:text="${ration.weight}"></td>
+                <td th:text="${ration.protein}"></td>
+                <td th:text="${ration.fat}"></td>
+                <td th:text="${ration.carbo}"></td>
+                <td th:text="${ration.kcal}"></td>
+            </tr>
 
-            </th:block>
+        </th:block>
         </tbody>
     </table>
+    <br><br>
+    <a href="/products">Nährwertzähler</a>
     <br><br><br><br><br><br><br><br><br><br>
     <footer th:include="fragments/tmpl :: footer"></footer>
     <div th:include="fragments/tmpl :: js"></div>
 </div> <!-- /container -->
 
-
+<script type="text/javascript" src="js/jquery.datetimepicker.full.min.js"></script>
+<script>
+    $('#rationDateFrom').datetimepicker({
+        format:"Y-m-d H:m:s"
+    });
+    $('#rationDateTo').datetimepicker({
+        format:"Y-m-d H:m:s"
+    });
+</script>
 </body>
 </html>

@@ -85,7 +85,13 @@ public class RationServiceImpl implements RationService {
 
     public static String getDateTime() {
         String[] dateTimeParts = LocalDateTime.now().toString().split("T");
-        return dateTimeParts[0] + " " + dateTimeParts[1];
+        String [] secondsParts = dateTimeParts[1].split("\\.");
+        return dateTimeParts[0] + " " + secondsParts[0];
+    }
+
+    public static String getDate(){
+        String[] dateTimeParts = LocalDateTime.now().toString().split("T");
+        return dateTimeParts[0];
     }
 
     @Override

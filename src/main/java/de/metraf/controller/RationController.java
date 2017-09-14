@@ -3,7 +3,10 @@ package de.metraf.controller;
 import de.metraf.model.Contact;
 import de.metraf.model.ProductRation;
 import de.metraf.model.User;
-import de.metraf.service.*;
+import de.metraf.service.ContactService;
+import de.metraf.service.RationService;
+import de.metraf.service.RationServiceImpl;
+import de.metraf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Collection;
-//todo remove Registration, Einloggen from view for auth users
+//todo 1.fix products wich was saved. 2.Delete product from myration;
+
 /**
  * Created by metraf on 26.05.17.
  */
@@ -76,12 +81,22 @@ public class RationController {
     }
 
     @RequestMapping(value = "/myrat", method = RequestMethod.GET)
-    public ModelAndView myRationView(){
+    public ModelAndView myRationView(
+            @RequestParam(value = "from", required = false) String from,
+            @RequestParam(value = "to", required = false) String to
+    ) {
+        if(from == null || from == "" || to == null || to == ""){
+            from = RationServiceImpl.getDate() + " 00:00:00";
+            to = RationServiceImpl.getDate() + " 23:59:59";
+        }
         User authUser = userService.getAuthUser();
-        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findByUserIDBetweenTimes(authUser.getId(), "2017-01-01 00:00:00", RationServiceImpl.getDateTime()));
+        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findByUserIDBetweenTimes(authUser.getId(), from, to));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("rations", productRations);
+        modelAndView.addObject("from", from);
+        modelAndView.addObject("to", to);
         modelAndView.setViewName("myRation");
         return modelAndView;
     }
+
 }
