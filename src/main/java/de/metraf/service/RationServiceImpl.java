@@ -123,14 +123,14 @@ public class RationServiceImpl implements RationService {
         Collection<ProductRation> productRations = new LinkedList<>();
         Long counter = 0L;
         for(Ration ration : rations){
-            Product product = productService.findOne(ration.getId());
+            Product product = productService.findOne(ration.getProductID());
             productRations.add(new ProductRation(
                counter,
                     product.getName(),
                     toTwoFixed(product.getProtein() * ration.getWeight()),
                     toTwoFixed(product.getFat() * ration.getWeight()),
                     toTwoFixed(product.getCarbo() * ration.getWeight()),
-                    toTwoFixed(product.getCarbo() * ration.getWeight()),
+                    toTwoFixed(product.getKcal() * ration.getWeight()),
                     ration.getWeight()
             ));
             counter++;
