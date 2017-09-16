@@ -41,6 +41,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>1.1-groovy-2.4-rc-3</version>
+        </dependency>
         <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
