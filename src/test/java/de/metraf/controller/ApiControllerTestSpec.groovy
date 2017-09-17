@@ -3,7 +3,6 @@ package de.metraf.controller
 import de.metraf.model.Product
 import de.metraf.model.WeatherModern
 import de.metraf.service.RationService
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
@@ -23,6 +22,7 @@ class ApiControllerTestSpec extends Specification {
     RestTemplate restTemplate
     @LocalServerPort
     int randomServerPort;
+    String city = "Frankfurt";
 
 
     def "check get all products"(){
@@ -35,7 +35,6 @@ class ApiControllerTestSpec extends Specification {
 
     def "check getWeather by city"(){
         given:
-        String city = "Frankfurt";
         ResponseEntity<WeatherModern> weatherModernResponseEntity = restTemplate.exchange(UriEncoder.encode("http://localhost:$randomServerPort/api/weather/$city"), HttpMethod.GET, null, new ParameterizedTypeReference<WeatherModern>() {
 
         })
@@ -53,5 +52,16 @@ class ApiControllerTestSpec extends Specification {
         restTemplate != null
         randomServerPort != null
         println randomServerPort
+    }
+
+    def "check new name"(){
+        given:
+        ResponseEntity<Map> mapResponseEntity = restTemplate.exchange(UriEncoder.encode("http://localhost:$randomServerPort/api/weather/$city"), HttpMethod.GET, null, new ParameterizedTypeReference<Map>() {
+        })
+        when:
+        Map status = mapResponseEntity.getBody()
+        then:
+        status != null
+        mapResponseEntity.getStatusCode() == HttpStatus.OK || mapResponseEntity.getStatusCode() == HttpStatus.NO_CONTENT
     }
 }

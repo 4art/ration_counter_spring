@@ -14,9 +14,9 @@ class RationServiceImplTestSpec extends Specification {
     List<Ration> rationList = new ArrayList<>()
 
     void setup() {
-        rationList.add(new Ration(500, 1, 1L, getDateTime()))
-        rationList.add(new Ration(550, 2, 2L, getDateTime()))
-        rationList.add(new Ration(600, 3, 3L, getDateTime()))
+        rationList.add(new Ration(500, 1, 1L, RationServiceImpl.getDateTime()))
+        rationList.add(new Ration(550, 2, 2L, RationServiceImpl.getDateTime()))
+        rationList.add(new Ration(600, 3, 3L, RationServiceImpl.getDateTime()))
         List<Ration> smallRationList = [rationList.get(0)]
         repository.findAll() >> rationList
         repository.findOne(_ as Long) >> rationList.get(0)
@@ -89,11 +89,11 @@ class RationServiceImplTestSpec extends Specification {
 
     def "FindByUserIDBetweenTimes"() {
         given:
-        List<Ration> rations = service.findByUserIDBetweenTimes(1, getDateTime(), getDateTime())
+        List<Ration> rations = service.findByUserIDBetweenTimes(1, RationServiceImpl.getDateTime(), RationServiceImpl.getDateTime())
         expect:
         rations != null
         when:
-        service.findByUserIDBetweenTimes(1, getDateTime(), getDateTime())
+        service.findByUserIDBetweenTimes(1, RationServiceImpl.getDateTime(), RationServiceImpl.getDateTime())
         then:
         1 * service.findByUserIDBetweenTimes(_ as Integer, _ as String, _ as String)
         1 * repository.findByUserIDBetweenTimes(_ as Integer, _ as String, _ as String)
@@ -114,8 +114,8 @@ class RationServiceImplTestSpec extends Specification {
     def "getListProductRationToListRation"(){
         given:
         Collection<Ration> rationCollection = Arrays.asList(
-                new Ration(200, 1, 1L, getDateTime()),
-                new Ration(300, 1, 1L, getDateTime())
+                new Ration(200, 1, 1L, RationServiceImpl.getDateTime()),
+                new Ration(300, 1, 1L, RationServiceImpl.getDateTime())
         )
         RationService service = new RationServiceImpl(repository)
         ProductService productService = Stub()
@@ -130,8 +130,4 @@ class RationServiceImplTestSpec extends Specification {
 
     }
 
-    private String getDateTime(){
-        String[] dateTimeParts = LocalDateTime.now().toString().split("T")
-        return dateTimeParts[0] + " " + dateTimeParts[1]
-    }
 }
