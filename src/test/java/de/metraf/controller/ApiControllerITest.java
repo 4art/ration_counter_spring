@@ -62,12 +62,12 @@ public class ApiControllerITest {
         assertEquals(city, weatherModern.getName());
     }
 
-    @Test
-    public void checkFindAllRation() throws Exception{
-        Collection<Ration> rations = rationService.findAll();
-        assertNotNull(rations);
-        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findAll());
-        assertNotNull(productRations);
-        assertTrue(!productRations.isEmpty());
-    }
+//    @Test
+//    public void checkFindAllRation() throws Exception{
+//        Collection<Ration> rations = rationService.findAll();
+//        assertNotNull(rations);
+//        Collection<ProductRation> productRations = rationService.getListProductRationToListRation(rationService.findAll());
+//        assertNotNull(productRations);
+//        assertTrue(!productRations.isEmpty());
+//    }
 }
